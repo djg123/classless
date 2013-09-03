@@ -1,3 +1,4 @@
+import itertools
 import inspect
 from types import MethodType
 
@@ -70,7 +71,13 @@ def gen_class(methods, init_attrs, class_name='Generated Class'):
             #print 'Init leftover arguments:'
             #print leftover_args
             if set(leftover_args) != set(kwargs):
-                raise Exception("Wrong keyword arguments")
+                wrong_arguments = set(kwargs) - set(leftover_args)
+                dic = dict(zip(wrong_arguments,
+                                            itertools.cycle([0])))
+                bad_key = iter(dic).next()
+                raise TypeError("__init__() got an unexpected keyword "
+                                "argument '{}'".format(
+                                    bad_key))
             for attr, arg in zip(init_attrs, args):
                 setattr(obj, attr, arg)
             for k,v in kwargs.iteritems():
