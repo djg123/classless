@@ -5,8 +5,8 @@ setup(
     version = "0.0.1",
     author = "David J Gordon",
     author_email = "djyale@gmail.com",
-    description = ('Easily curry multiple functions to a list of attributes'
-                   ' without using classes'),
+    description = ('Easily curry multiple functions to a given list of'
+                   ' arguments without using classes'),
     license = "BSD",
     keywords = "class meta",
     #url = "http://packages.python.org/an_example_pypi_project",

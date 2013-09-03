@@ -3,7 +3,7 @@ import inspect
 from types import MethodType
 
 ########
-def make_free_args(f, init_attrs):
+def _make_free_args(f, init_attrs):
     '''
     Takes a function and a list of the instance attributes (as strings.)
 
@@ -20,7 +20,7 @@ def make_free_args(f, init_attrs):
         for attr in init_attrs:
             my_kwargs[attr] = getattr(self, attr)
         
-        leftover_args = compute_leftover_args(f_args.args, args, my_kwargs)
+        leftover_args = _compute_leftover_args(f_args.args, args, my_kwargs)
         print 'f_args: {}'.format(f_args)
         print 'args: {}'.format(args)
         print 'my_kwargs: {}'.format(my_kwargs)
@@ -42,7 +42,7 @@ def make_free_args(f, init_attrs):
     func.func_name = f.func_name
     return func
 
-def compute_leftover_args(func_args, args, my_kwargs):
+def _compute_leftover_args(func_args, args, my_kwargs):
     #return func_args[len(my_kwargs) + len(args) :]
     func_args_set = set(func_args)
     print 'func_args_set {}'.format(set(func_args))
@@ -55,7 +55,7 @@ def compute_leftover_args(func_args, args, my_kwargs):
     
 
 def gen_class(methods, init_attrs, class_name='Generated Class'):
-    new_methods = [make_free_args(f, init_attrs) for f in methods]
+    new_methods = [_make_free_args(f, init_attrs) for f in methods]
 
     def __init__(*args, **kwargs):
         len_args = len(args)
@@ -82,11 +82,11 @@ def gen_class(methods, init_attrs, class_name='Generated Class'):
                 setattr(obj, attr, arg)
             for k,v in kwargs.iteritems():
                 setattr(obj, k, v)
-            attach_methods(obj, new_methods, class_name)
+            _attach_methods(obj, new_methods, class_name)
         return obj
         
     return __init__
 
-def attach_methods(obj, methods, class_name):
+def _attach_methods(obj, methods, class_name):
     for method in methods:
         setattr(obj, method.func_name, MethodType(method, obj, class_name))
