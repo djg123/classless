@@ -9,7 +9,7 @@ setup(
                    ' arguments without using classes'),
     license = "BSD",
     keywords = "class meta",
-    #url = "http://packages.python.org/an_example_pypi_project",
+    url = "https://github.com/djyale/classless",
     py_modules=['classless'],
     long_description=open('README.rst').read() + '\n\n',
     classifiers=[
