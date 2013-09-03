@@ -10,7 +10,7 @@ and curry them on the specified attributes.
 
 Example:
 
-``
+```
 from classless import gen_class
 
 def fun_stuff(db, name, x):
@@ -33,9 +33,9 @@ MyPretendClass = gen_class(methods=(fun_stuff,
 		           init_attrs=['db', 'name'])
 
 ```
-and then we use ``MyPretendClass`` just like any regular class:
+and then we use ```MyPretendClass``` just like any regular class:
 
-``
+```
 obj = MyPretendClass(name='NiceName', db=some_connection)
 obj.awesome_adventure(25) # Calls awesome_adventure with name='NiceName'
                           # and w=25
@@ -44,12 +44,12 @@ obj.cool_stuff(1,2,3) # == cool_stuff(1, 2, 'NiceName', 3, some_connection
 
     
 obj.fun_stuff('Dr. X') # == fun_stuff(x='Dr. X')
-``
-where ``obj`` just holds the list of `methods` curried on the `init_attrs`.
+```
+where ```obj``` just holds the list of ```methods``` curried on the ```init_attrs```.
 
-We could have defined ``MyRealClass`` as so and get identical behaviour:
+We could have defined ```MyRealClass``` as so and get identical behaviour:
 
-``
+```
 class MyRealClass(object):
     def __init__(self, db, name):
         self.db = db
@@ -68,8 +68,8 @@ class MyRealClass(object):
         else:
             raise Exception("I don't approve of the name {}".format(self.name))
 
-``
+```
 
-But, then every one of those methods is tied down to a given class, and can't be used as regular functions, without first constructing ``MyRealClass``.
+But, then every one of those methods is tied down to a given class, and can't be used as regular functions, without first constructing ```MyRealClass```.
 
 
