@@ -11,6 +11,7 @@ and curry them on the specified attributes.
 Example:
 
 .. code-block:: python
+
     from classless import gen_class
     
     def fun_stuff(db, name, x):
@@ -35,6 +36,7 @@ Example:
 and then we use ``MyPretendClass`` just like any regular class:
 
 .. code-block:: python
+
     obj = MyPretendClass(name='NiceName', db=some_connection)
     obj.awesome_adventure(25) # Calls awesome_adventure with name='NiceName'
                               # and w=25
@@ -48,24 +50,24 @@ where ``obj`` just holds the list of ``methods`` curried on the ``init_attrs``.
 We could have defined ``MyRealClass`` as so and get identical behaviour:
 
 .. code-block:: python
-class MyRealClass(object):
-    def __init__(self, db, name):
-        self.db = db
-	self.name = name
 
-    def fun_stuff(x):
-        q = self.db.get(self.name)
-        return int(q) + x
+    class MyRealClass(object):
+        def __init__(self, db, name):
+            self.db = db
+    	self.name = name
     
-    def cool_stuff(q, z, y):
-        self.db.insert(self.name, (q, z, y))
-    
-    def awesome_adventure(w):
-        if w > 5:
-            return self.name
-        else:
-            raise Exception("I don't approve of the name {}".format(self.name))
-
+        def fun_stuff(x):
+            q = self.db.get(self.name)
+            return int(q) + x
+        
+        def cool_stuff(q, z, y):
+            self.db.insert(self.name, (q, z, y))
+        
+        def awesome_adventure(w):
+            if w > 5:
+                return self.name
+            else:
+                raise Exception("I don't approve of the name {}".format(self.name))
 
 But, then every one of those methods is tied down to a given class, and can't be used as regular functions, without first constructing ``MyRealClass``.
 
