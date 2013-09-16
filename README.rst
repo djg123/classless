@@ -41,10 +41,11 @@ and then we use ``MyPretendClass`` just like any regular class:
     obj.awesome_adventure(25) # Calls awesome_adventure with name='NiceName'
                               # and w=25
     
-    obj.cool_stuff(1,2,3) # == cool_stuff(1, 2, 'NiceName', 3, some_connection
+    obj.cool_stuff(1,2,3) # == cool_stuff(1, 2, 'NiceName', 3, some_connection)
     
         
-    obj.fun_stuff('Dr. X') # == fun_stuff(x='Dr. X')
+    obj.fun_stuff('Dr. X') # == fun_stuff(x='Dr. X', name='NiceName',
+                           #              db=some_connection)
 where ``obj`` just holds the list of ``methods`` curried on the ``init_attrs``.
 
 We could have defined ``MyRealClass`` as so and get identical behaviour:
