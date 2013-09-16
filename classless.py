@@ -15,19 +15,12 @@ def _make_free_args(f, init_attrs):
     f_args = inspect.getargs(f.func_code)
     
     def func(self, *args, **kwargs):
-        print 'Inside func'
         my_kwargs = {}
         for attr in init_attrs:
             my_kwargs[attr] = getattr(self, attr)
         
         leftover_args = _compute_leftover_args(f_args.args, args, my_kwargs)
-        print 'f_args: {}'.format(f_args)
-        print 'args: {}'.format(args)
-        print 'my_kwargs: {}'.format(my_kwargs)
-        print 'leftover_args: {}'.format(leftover_args)
-        print 'kwargs:  {}'.format(kwargs)
         kw_from_positional_args = dict(zip(leftover_args, args))
-        print 'kw_from_positional_args: {}'.format(kw_from_positional_args)
         if set(my_kwargs.keys()) & set(kwargs.keys()) != set([]):
             raise('Cannot override instance variables')
         my_kwargs.update(kwargs)
@@ -37,7 +30,6 @@ def _make_free_args(f, init_attrs):
         for k,v in my_kwargs.copy().iteritems():
             if not k in f_args.args:
                 my_kwargs.pop(k)
-        print 'Final my_kwargs: {}'.format(my_kwargs)
         return f(**my_kwargs)
     func.func_name = f.func_name
     return func
@@ -45,9 +37,7 @@ def _make_free_args(f, init_attrs):
 def _compute_leftover_args(func_args, args, my_kwargs):
     #return func_args[len(my_kwargs) + len(args) :]
     func_args_set = set(func_args)
-    print 'func_args_set {}'.format(set(func_args))
     my_kwargs_keys_set = set(my_kwargs.keys())
-    print 'my_kwargs_keys_set {}'.format(set(my_kwargs.keys()))
     leftover_args_set = func_args_set - my_kwargs_keys_set
     # set loses the order, this way we make sure the leftover
     # args are in the same order as the original func_args
