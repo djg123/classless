@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = "Classless",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "David J Gordon",
     author_email = "djyale@gmail.com",
     description = ('Easily curry multiple functions to a given list of'
