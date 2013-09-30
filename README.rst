@@ -55,7 +55,7 @@ We could have defined ``MyRealClass`` as so and get identical behaviour:
     class MyRealClass(object):
         def __init__(self, db, name):
             self.db = db
-    	self.name = name
+    	    self.name = name
     
         def fun_stuff(x):
             q = self.db.get(self.name)
